@@ -17,7 +17,7 @@ var todoList = {
       }
     }
   },
-  // Method to create an object
+  // Method to create a todo object
   addTodos: function(todoText) {
     this.todos.push({
       todoText: todoText,
@@ -32,13 +32,37 @@ var todoList = {
   },
   // Method to delete todos
   deleteTodo: function(position) {
-    this.todos.splice(position -1, 1);
+    this.todos.splice(position - 1, 1);
     this.displayTodos();
   },
   // Method to toggle 'completed' property
   toggleCompleted: function(position) {
     var todo = this.todos[position - 1];
     todo.completed = !todo.completed;
+    this.displayTodos();
+  },
+  // Method to toggle all todos
+  toggleAll: function() {
+    var completedTodos = 0,
+      totalTodos = this.todos.length,
+      todos = this.todos,
+      toggle = function(value) {
+        for (var i = 0; i < totalTodos; i++) {
+          todos[i].completed = value;
+        }
+      };
+
+    for (var i = 0; i < totalTodos; i++) {
+      if (this.todos[i].completed) {
+        completedTodos++;
+      }
+    }
+
+    if (completedTodos === totalTodos) {
+      toggle(false);
+    } else {
+      toggle(true);
+    }
     this.displayTodos();
   }
 };
