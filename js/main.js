@@ -90,22 +90,24 @@ var view = {
 
     todoList.todos.forEach(function(todo, position) {
         var todoLi = document.createElement('li');
-        var todoTextWithCompletion = "( ) " + todo.todoText;
+        todoTextWithCompletion = "<i class=\"fa fa-circle-o\"></i><p>" + todo.todoText + "</p>";
 
         if (todo.completed === true) {
-          todoTextWithCompletion = "(X) " + todo.todoText;
+          todoTextWithCompletion = "<i class=\"fa fa-check-circle-o\"></i><p class=\"completedText\">" + todo.todoText + "</p>";
         }
 
         todoLi.id = position;
-        todoLi.textContent = todoTextWithCompletion;
+        // todoLi.textContent = todoTextWithCompletion;
+        todoLi.innerHTML = todoTextWithCompletion;
         todoLi.appendChild(this.createDeleteButton());
         todosUl.appendChild(todoLi);
     }, this);
   },
   createDeleteButton: function() {
     var deleteButton = document.createElement('button');
-    deleteButton.textContent = "Delete";
-    deleteButton.className = 'deleteButton';
+    // deleteButton.textContent = "Delete";
+    // deleteButton.innerHTML = "<i></i>";
+    deleteButton.className = 'fa fa-times-circle-o deleteButton';
     return deleteButton;
   },
   setUpEventListeners: function() {
@@ -113,7 +115,7 @@ var view = {
     todosUl.addEventListener('click', function(event) {
 
       var elementClicked = event.target;
-      if (elementClicked.className === "deleteButton") {
+      if (elementClicked.className === "fa fa-times-circle-o deleteButton") {
         handlers.deleteTodo(parseInt(elementClicked.parentNode.id));
       }
     });
